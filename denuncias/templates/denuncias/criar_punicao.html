@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Punição</title>
+</head>
+<body>
+    <h1>Criar Nova Punição</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Gerar Mensagem</button>
+    </form>
+</body>
+</html>

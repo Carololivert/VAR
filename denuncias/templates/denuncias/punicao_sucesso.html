@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Punição Criada!</title>
+    <style>
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Punição Gerada!</h1>
+    <p>Copie o texto abaixo e cole onde for necessário:</p>
+    <pre>{{ mensagem }}</pre>
+    <a href="{% url 'criar_punicao' %}">Gerar Outra Punição</a>
+</body>
+</html>
