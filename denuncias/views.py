@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import PunicoesForm
+from .forms import PunicoesForm, VarForm
 from .models import Punições
 
 def criar_punicao(request):
@@ -7,7 +7,7 @@ def criar_punicao(request):
         form = PunicoesForm(request.POST)
         if form.is_valid():
             punicao_salva = form.save()
-            
+
 
             mensagem = (
                 f'Nome: {punicao_salva.nick_name.nome}\n'
@@ -22,3 +22,19 @@ def criar_punicao(request):
         form = PunicoesForm()
 
     return render(request, 'denuncias/criar_punicao.html', {'form': form})
+
+def criar_var(request):
+    if request.method == 'POST':
+        form = VarForm(request.POST)
+        if form.is_valid():
+            var_salvo = form.save()
+
+            msg = (
+                f'Nome: {var_salvo.nome}'
+            )
+
+        return render(request, 'denuncias/punicao_sucesso.html', {'mensagem':msg})
+    else:
+        form = VarForm()
+        return render(request, 'denuncias/criar_var.html', {'form': form})
+
