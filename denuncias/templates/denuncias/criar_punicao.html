@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Criar Punição</title>
-</head>
-<body>
+{% extends "denuncias/base.html" %}
+
+{% block title %}Criar Punição{% endblock %}
+
+{% block content %}
+<div class="form-container">
     <h1>Criar Nova Punição</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Gerar Mensagem</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

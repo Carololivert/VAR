@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Criar Var</title>
-</head>
-<body>
+{% extends "denuncias/base.html" %}
+
+{% block title %}Adicionar VAR{% endblock %}
+
+{% block content %}
+<div class="form-container">
     <h1>Adicionar Novo Var</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Confirmar</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

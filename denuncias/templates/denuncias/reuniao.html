@@ -1,6 +1,14 @@
-<form method="post">
-    {% csrf_token %}
-    <h1>Gerador de Mensagens</h1>
-    {{ form.as_p }}
-    <button type="submit">Gerar Mensagem</button>
-</form>
+{% extends "denuncias/base.html" %}
+
+{% block title %}Gerar Mensagem de Reunião{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Gerador de Mensagens (Reunião)</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Gerar Mensagem</button>
+    </form>
+</div>
+{% endblock %}

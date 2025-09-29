@@ -20,7 +20,7 @@ def criar_punicao(request):
             )
 
             msg = ( 
-                f'Sua allowlist está sendo removida por , por conduta inadequada no Complexo XP.\n'
+                f'Sua allowlist está sendo removida por {punicao_salva.temp_ban} dias, por conduta inadequada no Complexo XP.\n'
                 f'Segue nossa análise: {punicao_salva.motivo.nome}'
             )
             contexto = {

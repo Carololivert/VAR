@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Pessoas</title>
-</head>
-<body>
-    <h1>Lista de Pessoas</h1>
+{% extends "denuncias/base.html" %}
+
+{% block title %}Lista de Vares{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Lista de Vares</h1>
     <ul>
         {% for pessoa in pessoas %}
             <li>
                 Nome: {{ pessoa.nome }} 
             </li>
         {% empty %}
-            <li>Nenhuma pessoa cadastrada.</li>
+            <li>Nenhum VAR cadastrado.</li>
         {% endfor %}
     </ul>
-</body>
-</html>
+</div>
+{% endblock %}

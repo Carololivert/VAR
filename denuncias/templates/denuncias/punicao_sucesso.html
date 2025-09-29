@@ -1,25 +1,73 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Punição Criada!</title>
-    <style>
-        pre {
-            background-color: #f4f4f4;
-            padding: 15px;
-            border: 1px solid #ddd;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-family: monospace;
-        }
-    </style>
-</head>
-<body>
-    <h1>Punição Gerada!</h1>
-    <p>Copie o texto abaixo e cole onde for necessário:</p>
-    <pre>{{ mensagem }}</pre>
-    <pre>{{ msg }}</pre>
-    <a href="{% url 'criar_punicao' %}">Gerar Outra Punição</a>
-    <a href="{% url 'var' %}">Gerar Outro Var</a>
-</body>
-</html>
+{% extends "denuncias/base.html" %}
+
+{% block title %}Punição Gerada!{% endblock %}
+
+{% block content %}
+<style>
+    /* Estilos específicos para a tela de sucesso */
+    .success-message {
+        text-align: center;
+        width: 100%;
+        max-width: 700px;
+    }
+    .success-message h1 {
+        color: #28a745; 
+    }
+    .message-container {
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+    .message-container h2 {
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 5px;
+    }
+    pre {
+        background-color: #e9ecef;
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 14px;
+        color: #000;
+        margin-top: 10px;
+    }
+    .link-button {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 4px;
+        margin: 10px 5px;
+        transition: background-color 0.3s;
+    }
+    .link-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<div class="success-message">
+    <h1>Punição Gerada com Sucesso!</h1>
+    
+    <div class="message-container">
+        <h2>Mensagem Detalhada (Copie e cole onde necessário):</h2>
+        <pre>{{ mensagem }}</pre>
+    </div>
+    
+    <div class="message-container">
+        <h2>Mensagem de Aviso:</h2>
+        <pre>{{ msg }}</pre>
+    </div>
+
+    <a href="{% url 'criar_punicao' %}" class="link-button">Gerar Outra Punição</a>
+    <a href="{% url 'var' %}" class="link-button">Adicionar Outro Var</a>
+</div>
+{% endblock %}
