@@ -26,4 +26,8 @@ class Punições(models.Model):
     def __str__(self):
         return f'{self.nick_name} , {self.motivo}, ({self.id_punido})'
     
+class Acoes(models.Model):
+    nome = models.CharField(max_length=50)
 
+    def __str__(self):
+        return f'{self.nome}'
