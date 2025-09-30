@@ -12,11 +12,11 @@ def criar_punicao(request):
 
 
             mensagem = (
-                f'**ID: {punicao_salva.id_punido}\n**'
-                f'**ID Discord: {punicao_salva.id_dc}\n**'
-                f'**Motivo: {punicao_salva.motivo.nome}\n**'
-                f'**Tempo: {punicao_salva.temp_ban} dias\n**'
-                f'**Provas: {punicao_salva.link_evid}\n**'
+                f'**ID: {punicao_salva.id_punido}**\n'
+                f'ID Discord: {punicao_salva.id_dc}\n'
+                f'Motivo: {punicao_salva.motivo.nome}\n'
+                f'Tempo: {punicao_salva.temp_ban} dias\n'
+                f'Provas: {punicao_salva.link_evid}\n'
             )
 
             msg = ( 
