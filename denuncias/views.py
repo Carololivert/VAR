@@ -40,10 +40,10 @@ def criar_var(request):
             var_salvo = form.save()
 
             msg = (
-                f'Nome: {var_salvo.nome}'
+                f'Var {var_salvo.nome} foi salvo no banco de dados.'
             )
 
-        return render(request, 'denuncias/punicao_sucesso.html', {'mensagem':msg})
+        return render(request, 'denuncias/var_sucesso.html', {'mensagem':msg})
     else:
         form = VarForm()
         return render(request, 'denuncias/criar_var.html', {'form': form})
