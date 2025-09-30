@@ -14,7 +14,7 @@ class Vares(models.Model):
         return self.nome
 
 class Punições(models.Model):
-    nick_name = models.ForeignKey(Vares, on_delete=models.CASCADE)
+    nick_name = models.ForeignKey(Vares, on_delete=models.CASCADE, verbose_name='Nome Var')
     id_punido = models.IntegerField("ID")
     id_dc = models.IntegerField('ID DC')
     motivo = models.ForeignKey(Motivo, on_delete=models.CASCADE)
