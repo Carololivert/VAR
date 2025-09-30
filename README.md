@@ -66,3 +66,18 @@ Inicie o servidor local:
 
 python manage.py runserver
 O projeto estará acessível em: http://127.0.0.1:8000/
+
+
+##Rotas Principais
+As URLs da aplicação denuncias são acessadas pelo prefixo /punicao/:
+
+Funcionalidade	URL	Nome da Rota
+Criar Punição	/punicao/	criar_punicao
+Criar Novo Var	/punicao/creat/	var
+Exibir Lista de Vars	/punicao/vares/	(sem nome)
+Gerar Mensagem de Reunião	/punicao/reuniao/	chamar_reuniao
+Solicitar Tela (Gravação)	/punicao/tela/	solicitar_tela
+Administração	/admin/	(Django Padrão)
+
+
+
