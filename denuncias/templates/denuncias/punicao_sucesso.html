@@ -4,45 +4,72 @@
 
 {% block content %}
 <style>
-    /* Estilos específicos para a tela de sucesso */
-    .success-message {
-        text-align: center;
+    /* Estilos específicos para a tela de sucesso, centralizados no container */
+    .container-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
-        max-width: 700px;
+        max-width: 800px; /* Largura máxima para centralizar o conteúdo */
+        margin: 0 auto;
+        padding-top: 20px;
     }
-    .success-message h1 {
-        color: #28a745; 
-    }
-    .message-container {
+    .container-content h1 {
+        color: #28a745; /* Verde para sucesso */
         margin-bottom: 20px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        text-align: left;
     }
-    .message-container h2 {
-        color: #333;
-        margin-top: 0;
-        margin-bottom: 10px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 5px;
-    }
-    pre {
-        background-color: #e9ecef;
+
+    /* Alerta de Reincidência (VERMELHO - ALERTA) */
+    .alerta-reincidencia {
+        background-color: #f8d7da; /* Vermelho claro */
+        color: #721c24; /* Texto escuro */
+        border: 1px solid #f5c6cb;
         padding: 15px;
-        border: 1px solid #dee2e6;
-        border-radius: 4px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        font-weight: bold;
+        width: 100%;
+    }
+
+    /* Informação da Última Punição (AMARELO - INFO) */
+    .info-ultima-punicao {
+        background-color: #fff3cd; /* Amarelo claro */
+        color: #856404; /* Texto escuro */
+        border: 1px solid #ffeeba;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    
+    /* Container das Mensagens de Cópia */
+    .mensagem-copia-container {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .mensagem-copia-container h3 {
+        color: #333;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Estilo para o campo de pré-formatação (pre) */
+    .mensagem-copia-container pre {
+        background-color: #f8f9fa; /* Cinza claro, mais clean que o original */
+        padding: 15px;
+        border: 1px solid #e9ecef;
         white-space: pre-wrap;
         word-wrap: break-word;
-        font-family: 'Consolas', 'Courier New', monospace;
-        font-size: 14px;
-        color: #000;
-        margin-top: 10px;
+        font-family: monospace;
+        border-radius: 4px;
+        margin-bottom: 15px;
     }
+
+    /* Botões de Ação (link-button do seu exemplo) */
     .link-button {
         display: inline-block;
-        background-color: #007bff;
+        background-color: #007bff; /* Azul para o botão de ação principal */
         color: white;
         padding: 10px 15px;
         text-decoration: none;
@@ -53,20 +80,47 @@
     .link-button:hover {
         background-color: #0056b3;
     }
+    .secondary-link {
+        display: inline-block;
+        background-color: #6c757d; /* Cinza para o botão secundário */
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 4px;
+        margin: 10px 5px;
+        transition: background-color 0.3s;
+    }
+    .secondary-link:hover {
+        background-color: #5a6268;
+    }
 </style>
-<div class="success-message">
+
+<div class="container-content">
     <h1>Punição Gerada com Sucesso!</h1>
     
-    <div class="message-container">
-        <h2>Mensagem Detalhada (Copie e cole onde necessário):</h2>
+    {% if alerta_historico %}
+        <div class="alerta-reincidencia">
+            {{ alerta_historico }}
+        </div>
+    {% endif %}
+
+    {% if data_ultima_punicao %}
+        <div class="info-ultima-punicao">
+            **Histórico Encontrado:** Última punição registrada foi por **{{ motivo_ultima_punicao }}** em **{{ data_ultima_punicao }}**.
+        </div>
+    {% endif %}
+
+    <div class="mensagem-copia-container">
+        <h3>Mensagem da Punição</h3>
+        <p>Copie o texto abaixo e cole onde for necessário:</p>
         <pre>{{ mensagem }}</pre>
-    </div>
-    
-    <div class="message-container">
-        <h2>Mensagem de Aviso:</h2>
+
+        <h3>Mensagem de Saída</h3>
+        <p>Copie o texto abaixo e cole onde for necessário:</p>
         <pre>{{ msg }}</pre>
     </div>
 
     <a href="{% url 'criar_punicao' %}" class="link-button">Gerar Outra Punição</a>
 </div>
-{% endblock %}
+
+{% endblock content %}

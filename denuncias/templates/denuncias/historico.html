@@ -1,0 +1,49 @@
+{% extends "denuncias/base.html" %}
+
+{% block title %}Histórico de Punições{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Histórico de Punições</h1>
+    
+    {% if historico_punicoes %}
+        <style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                padding: 8px;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Var</th>
+                    <th>ID Punido</th>
+                    <th>Motivo</th>
+                    <th>Tempo (dias)</th>
+                    <th>Link da Evidência</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for punicao in historico_punicoes %}
+                    <tr>
+                        <td>{{ punicao.created|date:"d/m/Y H:i" }}</td>
+                        <td>{{ punicao.nick_name.nome }}</td>
+                        <td>{{ punicao.id_punido }}</td>
+                        <td>{{ punicao.motivo.nome }}</td>
+                        <td>{{ punicao.temp_ban }}</td>
+                        <td><a href="{{ punicao.link_evid }}" target="_blank">Ver Provas</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma punição registrada no histórico.</p>
+    {% endif %}
+</div>
+{% endblock content %}

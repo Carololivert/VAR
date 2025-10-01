@@ -10,9 +10,37 @@ def criar_punicao(request):
         if form.is_valid():
             punicao_salva = form.save()
 
+            id_punido = punicao_salva.id_punido
+            motivo_id = punicao_salva.motivo.id
+            
+            # 1. Histórico: Punições pelo mesmo motivo, excluindo a atual.
+            punicoes_anteriores_mesmo_motivo = Punições.objects.filter(
+                id_punido=id_punido,
+                motivo_id=motivo_id
+            ).exclude(pk=punicao_salva.pk)
+            
+            count_mesmo_motivo = punicoes_anteriores_mesmo_motivo.count()
+            
+            # 2. Última Punição: Última punição registrada (qualquer motivo).
+            ultima_punicao = Punições.objects.filter(id_punido=id_punido).order_by('-created').exclude(pk=punicao_salva.pk).first()
+            
+            
+            alerta_historico = None
+            if count_mesmo_motivo > 0:
+                # Se for a 2ª, 3ª, 4ª vez, etc.
+                vez = count_mesmo_motivo + 1
+                alerta_historico = f'ALERTA DE REINCIDÊNCIA: Este ID já foi punido {count_mesmo_motivo} vez(es) por "{punicao_salva.motivo.nome}". Esta é a {vez}ª ocorrência.'
+            
+            data_ultima_punicao = None
+            motivo_ultima_punicao = None
+
+            if ultima_punicao:
+                data_ultima_punicao = ultima_punicao.created.strftime("%d/%m/%Y às %H:%M")
+                motivo_ultima_punicao = ultima_punicao.motivo.nome
+
 
             mensagem = (
-                f'**ID: {punicao_salva.id_punido}**\n'
+                f'ID: {punicao_salva.id_punido}\n'
                 f'ID Discord: {punicao_salva.id_dc}\n'
                 f'Motivo: {punicao_salva.motivo.nome}\n'
                 f'Tempo: {punicao_salva.temp_ban} dias\n'
@@ -25,7 +53,10 @@ def criar_punicao(request):
             )
             contexto = {
                 'mensagem' : mensagem,
-                'msg' : msg 
+                'msg' : msg,
+                'alerta_historico': alerta_historico, # Reincidência pelo mesmo motivo
+                'data_ultima_punicao': data_ultima_punicao, # Data da última punição (qualquer motivo)
+                'motivo_ultima_punicao': motivo_ultima_punicao,
             }
             return render(request, 'denuncias/punicao_sucesso.html', contexto)
     else:
@@ -56,11 +87,21 @@ def exibir_vares(request):
 def chamar_reuniao(request):
     if request.method == 'POST':
         form = ReuniaoForm(request.POST)
+
         
         if form.is_valid():
-            pessoa = form.cleaned_data['escolha_var']
+            pessoa = form.cleaned_data['escolha_var'] 
+
+            nomes_femininos = ['carolzinha', 'rezinha'] 
+            nome_formatado = pessoa.nome.strip().lower()
+
+            if nome_formatado in [n.lower() for n in nomes_femininos]:
+                pronome_artigo = 'a' 
+            else:
+                pronome_artigo = 'o'
+        
             mensagem = (
-                f'Boa noite, você está sendo convidado(a) a participar de uma reunião com a Administração. Procure o {pessoa.nome}, para agendar um horário, na data de hoje ou amanhã ({data_hoje.strftime('%d/%m/%Y')} ou {data_amanha.strftime('%d/%m/%Y')}).\n'  
+                f'{saudacao}, você está sendo convidado(a) a participar de uma reunião com a Administração. Procure {pronome_artigo} {pessoa.nome}, para agendar um horário, na data de hoje ou amanhã ({data_hoje.strftime('%d/%m/%Y')} ou {data_amanha.strftime('%d/%m/%Y')}).\n'  
                 f'Caso não corresponda à esta mensagem, uma punição entrará em vigor.'
             )
             return render(request, 'denuncias/reuniao_selecionar.html', {'mensagem' : mensagem})
@@ -80,8 +121,16 @@ def solicitar_tela(request):
         if form.is_valid():
             pessoa = form.cleaned_data['escolha_var']
             acao = form.cleaned_data['escolha_acao']
+
+            nomes_femininos = ['carolzinha', 'rezinha'] 
+            nome_formatado = pessoa.nome.strip().lower()
+
+            if nome_formatado in [n.lower() for n in nomes_femininos]:
+                pronome_artigo = 'a' 
+            else:
+                pronome_artigo = 'o'
             mensagem = (
-                f'Boa noite, devido a sua ultima ação {acao.nome} procure o {pessoa.nome}, para enviar a gravação da tela completa e sem cortes.\n'  
+                f'{saudacao}, devido a sua ultima ação {acao.nome} procure {pronome_artigo} {pessoa.nome}, para enviar a gravação da tela completa e sem cortes.\n'  
             )
             return render(request, 'denuncias/tela_msg.html', {'mensagem' : mensagem})
     
@@ -89,3 +138,18 @@ def solicitar_tela(request):
         form = TelaForm()
     return render(request, 'denuncias/tela_criar.html', {'form': form})
 
+hora_atual = datetime.datetime.now().hour
+saudacao = ''
+
+if hora_atual < 12:
+    saudacao = 'Bom dia'
+elif hora_atual < 18:
+    saudacao = 'Boa tarde'
+else:
+    saudacao = 'Boa noite'
+
+
+def exibir_historico(request):
+    historico_punicoes = Punições.objects.all().order_by('-created')
+    contexto = {'historico_punicoes': historico_punicoes}
+    return render(request,'denuncias/historico.html', contexto)
