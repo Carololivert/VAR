@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import PunicoesForm, TelaForm, VarForm,Vares,ReuniaoForm
-from .models import Punições
+from .models import Acoes, Motivo, Punições
 from datetime import datetime, timedelta
 import datetime
 
@@ -101,7 +101,7 @@ def chamar_reuniao(request):
                 pronome_artigo = 'o'
         
             mensagem = (
-                f'{saudacao}, você está sendo convidado(a) a participar de uma reunião com a Administração. Procure {pronome_artigo} {pessoa.nome}, para agendar um horário, na data de hoje ou amanhã ({data_hoje.strftime('%d/%m/%Y')} ou {data_amanha.strftime('%d/%m/%Y')}).\n'  
+                f'{saudacao}, você está sendo convidado(a) a participar de uma reunião com a Administração. Procure {pronome_artigo} {pessoa.nome}, para agendar um horário, na data de hoje ou amanhã ({data_hoje.strftime("%d/%m/%Y")} ou {data_amanha.strftime("%d/%m/%Y")}).\n'  
                 f'Caso não corresponda à esta mensagem, uma punição entrará em vigor.'
             )
             return render(request, 'denuncias/reuniao_selecionar.html', {'mensagem' : mensagem})
@@ -153,3 +153,28 @@ def exibir_historico(request):
     historico_punicoes = Punições.objects.all().order_by('-created')
     contexto = {'historico_punicoes': historico_punicoes}
     return render(request,'denuncias/historico.html', contexto)
+
+
+from rest_framework import viewsets
+from .serializers import PunicoesSerializer, MotivoSerializer, VaresSerializer, AcoesSerializer
+
+# ViewSets para o DRF (API)
+class MotivoViewSet(viewsets.ModelViewSet):
+    """API endpoint que permite visualizar ou editar motivos de punição."""
+    queryset = Motivo.objects.all()
+    serializer_class = MotivoSerializer
+
+class VaresViewSet(viewsets.ModelViewSet):
+    """API endpoint que permite visualizar ou editar os VARs."""
+    queryset = Vares.objects.all()
+    serializer_class = VaresSerializer
+
+class AcoesViewSet(viewsets.ModelViewSet):
+    """API endpoint que permite visualizar ou editar ações (para a tela)."""
+    queryset = Acoes.objects.all()
+    serializer_class = AcoesSerializer
+
+class PunicoesViewSet(viewsets.ModelViewSet):
+    """API endpoint que permite visualizar ou criar punições."""
+    queryset = Punições.objects.all().order_by('-created')
+    serializer_class = PunicoesSerializer
