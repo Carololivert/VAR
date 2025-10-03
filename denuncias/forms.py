@@ -4,7 +4,7 @@ from .models import Punições, Motivo, Vares, Acoes
 class PunicoesForm(forms.ModelForm):
     class Meta:
         model = Punições
-        fields = ['nick_name', 'id_punido', 'id_dc', 'motivo', 'temp_ban', 'link_evid']
+        fields = ['nick_name', 'id_punido', 'id_dc', 'motivo', 'temp_ban', 'link_evid','codigo_tx']
 
 
 class VarForm(forms.ModelForm):
