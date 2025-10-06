@@ -42,8 +42,15 @@ def criar_punicao(request):
 
             if nome_formatado in [n.lower() for n in nome_tempo]:
                 usar_dias = '' 
+                msg_final = (
+                                        f'Sua allowlist está sendo removida por tempo {nome_formatado}, por conduta inadequada no Complexo XP.\n'
+                                        f'Segue nossa análise: {punicao_salva.motivo.nome}')
             else:
                 usar_dias = 'dias'
+                msg_final = ( 
+                f'Sua allowlist está sendo removida por {punicao_salva.temp_ban} dias, por conduta inadequada no Complexo XP.\n'
+                f'Segue nossa análise: {punicao_salva.motivo.nome}')
+
 
 
             mensagem = (
@@ -55,13 +62,10 @@ def criar_punicao(request):
                 f'**Codigo-TX:** {punicao_salva.codigo_tx}\n'
             )
 
-            msg = ( 
-                f'Sua allowlist está sendo removida por {punicao_salva.temp_ban} dias, por conduta inadequada no Complexo XP.\n'
-                f'Segue nossa análise: {punicao_salva.motivo.nome}'
-            )
+            
             contexto = {
                 'mensagem' : mensagem,
-                'msg' : msg,
+                'msg' : msg_final,
                 'alerta_historico': alerta_historico, 
                 'data_ultima_punicao': data_ultima_punicao, 
                 'motivo_ultima_punicao': motivo_ultima_punicao,
