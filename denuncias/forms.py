@@ -6,6 +6,14 @@ class PunicoesForm(forms.ModelForm):
         model = Punições
         fields = ['nick_name', 'id_punido', 'id_dc', 'motivo', 'temp_ban', 'link_evid','codigo_tx']
 
+    def clean_temp_ban(self):
+        data = self.cleaned_data["temp_ban"]
+        try:
+            int(data)
+        except ValueError:
+            if data not in ['INDETERMINADO','Indeterminado','indeterminado']:
+                raise forms.ValidationError("Palavra 'Indeterminado' escrita de maneira incorreta!")
+        return data
 
 class VarForm(forms.ModelForm):
     class Meta:
