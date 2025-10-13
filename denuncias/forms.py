@@ -12,7 +12,7 @@ class PunicoesForm(forms.ModelForm):
             int(data)
         except ValueError:
             if data not in ['INDETERMINADO','Indeterminado','indeterminado']:
-                raise forms.ValidationError("O campo deve ser preenchido com numeros ou a palavra 'Indeterminado'!") ##arruma e subir pro main essa mensagem
+                raise forms.ValidationError("O campo aceita apenas números ou a palavra 'Indeterminado'.") ##arruma e subir pro main essa mensagem
         return data
 
 class VarForm(forms.ModelForm):

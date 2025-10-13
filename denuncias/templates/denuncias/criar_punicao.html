@@ -1,14 +1,18 @@
-{% extends "denuncias/base.html" %}
+{% extends 'denuncias/base.html' %}
 
+<<<<<<< Updated upstream
 {% block title %}Gerar Punição{% endblock %}
+=======
+{% block title %}Criar Punição{% endblock %}
+>>>>>>> Stashed changes
 
 {% block content %}
-<div class="form-container">
-    <h1>Criar Nova Punição</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Gerar Mensagem</button>
-    </form>
-</div>
+    <div class="form-container">
+        <h1>Criar Nova Punição</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Gerar Mensagem</button>
+        </form>
+    </div>
 {% endblock %}
