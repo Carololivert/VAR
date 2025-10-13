@@ -1,0 +1,155 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte um pouco mais moderna */
+    background-color: rgb(17, 17, 17); /* Fundo mais claro e suave */
+
+    margin: 0;
+    padding-top: 55px;
+    color: white;
+}
+/* --- Navbar Styles (Mantido) --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    background-color: rgb(25, 25, 25); /* Azul escuro */
+    padding: 10px 20px;
+    box-shadow: 0 2px 8px rgba(0, 26, 255, 0.349); /* Sombra mais destacada */
+
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+}
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 5px 15px;
+    margin: 0 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-weight: bold;
+}
+.navbar a:hover {
+    background-color: rgba(0, 26, 255, 0.349);
+    transition: 0.5s;
+}
+/* --- Content Styles (Mantido) --- */
+.content {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+/* --- Form Card Styles (Melhorado) --- */
+.form-container {
+
+    background-color: rgb(25, 25, 25);
+    padding: 35px 40px; /* Mais padding */
+    border-radius: 12px; /* Cantos mais arredondados */
+    height: auto;
+    box-shadow: 0 4px 16px rgba(0, 26, 255, 0.349); /* Borda sutil */
+    width: 100%;
+    max-width: 700px; /* Um pouco mais largo */
+    transition: 1s;
+}
+.form-container:hover {
+    box-shadow: 0 12px 25px rgba(0, 26, 255, 0.349);
+    transition: 1s;
+
+}
+h1 {
+    color: rgb(255, 255, 255);
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.8em;
+    border-bottom: 2px solid rgb(255, 255, 255);
+    padding-bottom: 10px;
+}
+/* Estilos para os elementos do Formulário */
+form p {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 7px;
+
+    font-weight: 600; /* Mais negrito */
+    color: rgb(255, 255, 255);
+
+    font-size: 0.95em;
+}
+input[type="text"], input[type="number"], input[type="url"], select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: rgb(17, 17, 17);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    color: rgb(255, 255, 255);
+}
+input:focus, select:focus {
+
+    border-color: #0011ff38; /* Cor principal no foco */
+    box-shadow: 0 0 8px rgba(0, 26, 255, 0.349);; /* Sombra de foco */
+    outline: none;
+    border: none;
+    background-color: rgb(17, 17, 17);
+    color: rgb(255, 255, 255);
+}
+/* Estilo do Botão (Genérico) */
+button[type="submit"] {
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.05em;
+    margin-top: 25px;
+    transition: background-color 0.3s, transform 0.1s;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+button[type="submit"]:active {
+    transform: scale(0.99);
+}
+/* Estilos de Botão Específicos (para Punicao, que usa a cor azul) */
+.form-container button[type="submit"] {
+    background-color: #2135a58e; /* Azul primário para criar punição */
+
+}
+.form-container button[type="submit"]:hover {
+    background-color: #2933b9;
+    max-width: 100%;
+    transition: 1s;
+    
+}
+
+/* Estilos de mensagens de sucesso e erro */
+.message-container {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgb(17, 17, 17);
+    text-align: left;
+}
+pre {
+    background-color: #ecf0f1;
+    padding: 18px;
+    border: 1px solid #bdc3c7;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 14px;
+    color: #34495e;
+    margin-top: 15px;
+}
