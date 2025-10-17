@@ -18,10 +18,10 @@ class Punições(models.Model):
     id_punido = models.IntegerField("ID")
     id_dc = models.IntegerField('ID DC')
     motivo = models.ForeignKey(Motivo, on_delete=models.CASCADE)
-    temp_ban = models.CharField("Tempo")
+    temp_ban = models.CharField(max_length=50, verbose_name="Tempo")
     link_evid = models.URLField("Link")
     created = models.DateTimeField(auto_now_add=True)
-    codigo_tx = models.CharField(null=True, blank=True, verbose_name='Codigo-TX')
+    codigo_tx = models.CharField(max_length=50, null=True, blank=True, verbose_name='Codigo-TX')
 
     
     def __str__(self):
