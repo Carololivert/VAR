@@ -1,14 +1,14 @@
-{% extends "denuncias/base.html" %}
+{% extends 'denuncias/base.html' %}
 
-{% block title %}VARs{% endblock %}
+{% block title %}Gerar Punição{% endblock %}
 
 {% block content %}
-<div class="form-container">
-    <h1>Criar Nova Punição</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Gerar Mensagem</button>
-    </form>
-</div>
+    <div class="form-container">
+        <h1>Criar Nova Punição</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Gerar Mensagem</button>
+        </form>
+    </div>
 {% endblock %}

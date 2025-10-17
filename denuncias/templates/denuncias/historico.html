@@ -1,5 +1,4 @@
 {% extends "denuncias/base.html" %}
-
 {% block title %}Histórico de Punições{% endblock %}
 
 {% block content %}
@@ -7,41 +6,102 @@
     <h1>Histórico de Punições</h1>
     
     {% if historico_punicoes %}
-        <style>
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-                padding: 8px;
-            }
-            th {
-                background-color: #f2f2f2;
-            }
-        </style>
+<style>
+    /* Container que vai alinhar os cards */
+    .cards-container {
+        display: flex; /* Habilita o layout flexível */
+        flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
+        gap: 20px; /* Espaçamento entre os cards */
+        justify-content: center; /* Centraliza os cards no container */
+        padding: 20px 0;
+    }
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Var</th>
-                    <th>ID Punido</th>
-                    <th>Motivo</th>
-                    <th>Tempo (dias)</th>
-                    <th>Link da Evidência</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for punicao in historico_punicoes %}
-                    <tr>
-                        <td>{{ punicao.created|date:"d/m/Y H:i" }}</td>
-                        <td>{{ punicao.nick_name.nome }}</td>
-                        <td>{{ punicao.id_punido }}</td>
-                        <td>{{ punicao.motivo.nome }}</td>
-                        <td>{{ punicao.temp_ban }}</td>
-                        <td><a href="{{ punicao.link_evid }}" target="_blank">Ver Provas</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    /* Estilo individual de cada card de punição */
+    .punishment-card {
+        background-color: rgb(18, 18, 18); /* Cor de fundo escura para o card */
+        border-radius: 15px; /* Cantos arredondados */
+        box-shadow: 0 0 8px rgba(0, 26, 255, 0.349);
+        padding: 20px;
+        width: 540px; /* Largura fixa para cada card */ 
+        display: flex;
+        flex-direction: column; /* Organiza o conteúdo em coluna */
+        color: #f0f0f0; /* Cor do texto principal */
+    }
+
+    .card-header {
+        border-bottom: 1px solid #444;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+
+    .card-header h3 {
+        margin: 0;
+        color: #ffffff;
+        font-size: 1.2em;
+    }
+    
+    .card-header span {
+        font-weight: bold;
+        color: #203cdf; /* Destaque para o motivo */
+    }
+
+    .card-body p {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+
+    .card-body strong {
+        color: #ffffff73; /* Cor mais suave para os rótulos */
+        margin-right: 8px;
+    }
+
+    .card-footer {
+        margin-top: auto; /* Empurra o rodapé para o final do card */
+        text-align: center;
+        padding-top: 15px;
+    }
+
+    .evidence-link {
+        background-color: #2135a58e;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 1s;
+    }
+
+    .evidence-link:hover {
+        background-color: #2933b9;
+        transition: 1s;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 0 8px rgba(0, 26, 255, 0.349);
+    }
+</style>
+<div class="cards-container">
+
+    {% for punicao in historico_punicoes %}
+    
+    <div class="punishment-card">
+        <div class="card-header">
+            <h3>ID {{ punicao.id_punido }} - <span>{{ punicao.motivo.nome }}</span></h3>
+        </div>
+
+        <div class="card-body">
+            <p><strong>VAR:</strong> {{ punicao.nick_name.nome }}</p>
+            <p><strong>ID Discord:</strong> {{ punicao.id_dc }}</p>
+            <p><strong>Data:</strong> {{ punicao.created }}</p>
+            <p><strong>Tempo:</strong> {{ punicao.temp_ban }}</p>
+        </div>
+
+        <div class="card-footer">
+            <a href="{{ punicao.link_evid }}" target="_blank" class="evidence-link">Ver Provas</a>
+        </div>
+    </div>
+
+    {% endfor %}
+    
+</div>
     {% else %}
         <p>Nenhuma punição registrada no histórico.</p>
     {% endif %}

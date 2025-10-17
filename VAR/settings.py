@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-h9aryq%lv*5mbajgo$6snud8gov9nt!je1pyet8*ay*g@^qkh*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['Carololivert.pythonanywhere.com']
+ALLOWED_HOSTS = ['https://carololivert.pythonanywhere.com/']
 
 
 # Application definition
@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
@@ -123,3 +123,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+LOGIN_URL = '/admin/login/'

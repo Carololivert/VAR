@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import PunicoesForm, TelaForm, VarForm,Vares,ReuniaoForm
+from django.contrib.auth.decorators import login_required
 from .models import Punições
 from datetime import datetime, timedelta
 import datetime
 
+@login_required
 def criar_punicao(request):
     if request.method == 'POST':
         form = PunicoesForm(request.POST)
@@ -77,6 +79,7 @@ def criar_punicao(request):
 
     return render(request, 'denuncias/criar_punicao.html', {'form': form})
 
+@login_required
 def criar_var(request):
     if request.method == 'POST':
         form = VarForm(request.POST)
@@ -92,11 +95,13 @@ def criar_var(request):
         form = VarForm()
         return render(request, 'denuncias/criar_var.html', {'form': form})
     
+@login_required    
 def exibir_vares(request):
     pessoas = Vares.objects.all()
     contexto = {'pessoas': pessoas}
     return render(request, 'denuncias/exibir_vares.html', contexto)
 
+@login_required
 def chamar_reuniao(request):
     if request.method == 'POST':
         form = ReuniaoForm(request.POST)
@@ -127,6 +132,7 @@ def chamar_reuniao(request):
 data_hoje = datetime.date.today()
 data_amanha = data_hoje + timedelta(days=1)
 
+@login_required
 def solicitar_tela(request):
     if request.method == 'POST':
         form = TelaForm(request.POST)
@@ -161,7 +167,7 @@ elif hora_atual < 18:
 else:
     saudacao = 'Boa noite'
 
-
+@login_required
 def exibir_historico(request):
     historico_punicoes = Punições.objects.all().order_by('-created')
     contexto = {'historico_punicoes': historico_punicoes}
